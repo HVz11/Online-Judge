@@ -1,0 +1,31 @@
+# src/schema/schema.graphql
+
+# Import types from types.graphql
+#import * from './types.graphql'
+
+type Query {
+  getUser(id: ID!): User
+  getAllUsers: [User!]!
+  getProblem(id: ID!): Problem
+  getAllProblems: [Problem!]!
+  getSubmission(id: ID!): Submission
+  getAllSubmissions: [Submission!]!
+}
+
+type Mutation {
+  createUser(username: String!, email: String!, password: String!): User
+  updateUser(id: ID!, username: String, email: String, password: String): User
+  deleteUser(id: ID!): User
+  createProblem(
+    title: String!
+    description: String!
+    difficulty: String!
+  ): Problem
+  updateProblem(
+    id: ID!
+    title: String
+    description: String
+    difficulty: String
+  ): Problem
+  deleteProblem(id: ID!): Problem
+}
