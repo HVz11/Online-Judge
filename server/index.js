@@ -7,8 +7,12 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 // TypeDefs and resolvers
-const typeDefs = require("./schema/types");
-const resolvers = require("./resolvers/resolvers");
+const userTypeDefs = require("./schema/userSchema");
+const problemTypeDefs = require("./schema/problemSchema");
+const submissionTypeDefs = require("./schema/submissionSchema");
+const userResolvers = require("./resolvers/userResolver");
+const problemResolvers = require("./resolvers/problemResolver");
+const submissionResolvers = require("./resolvers/submissionResolver");
 
 // Connect to MongoDB
 try {
@@ -23,10 +27,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
 app.use("/api", authenticateUser); // Apply middleware to /api route
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs: [userTypeDefs, problemTypeDefs, submissionTypeDefs],
+  resolvers: [userResolvers, problemResolvers, submissionResolvers],
+});
 
 async function startServer() {
   await server.start();
