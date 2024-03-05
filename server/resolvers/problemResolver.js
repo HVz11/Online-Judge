@@ -1,11 +1,10 @@
-const problem = require("../models/Problem");
-// const Submission = require("../models/Submission");
+const Problem = require("../models/Problem");
 
 const resolvers = {
   Query: {
     allProblems: async () => {
       try {
-        const problems = await problem.find();
+        const problems = await Problem.find();
         return problems;
       } catch (err) {
         throw new Error(err);
@@ -13,8 +12,8 @@ const resolvers = {
     },
     getProblemById: async (_, { id }) => {
       try {
-        const problem = await problem.findById(id);
-        return problem;
+        const foundProblem = await Problem.findById(id);
+        return foundProblem;
       } catch (err) {
         throw new Error(err);
       }
@@ -23,13 +22,13 @@ const resolvers = {
   Mutation: {
     addProblem: async (_, { statement, name, code, difficulty }) => {
       try {
-        const problem = new ProblemsSchema({
+        const newProblem = new Problem({
           statement,
           name,
           code,
           difficulty,
         });
-        await problem.save();
+        await newProblem.save();
         return "Problem added successfully";
       } catch (err) {
         throw new Error(err);

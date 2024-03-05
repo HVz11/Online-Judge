@@ -18,7 +18,7 @@ const typeDefs = gql`
   type Query {
     allProblems: [Problem!]!
     getProblemById(id: ID!): Problem
-  }
+  } 
 
   type Mutation {
     addProblem(
